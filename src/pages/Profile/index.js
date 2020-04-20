@@ -9,14 +9,15 @@ import './style.css';
 import logoImg from '../../assets/logo.svg';
 
 export default function Profile() {
+    console.log('Profile');
     const [incidents, setIncidents] = useState([]);
 
     const history = useHistory();
 
-
-    const ongId = localStorage.getItem([]);
-    const ongName = localStorage.getItem('OngName');
-
+    const ongId = localStorage.getItem('ongId');
+    const ongName = localStorage.getItem('ongName');
+    console.log(ongId);
+    console.log(ongName);
 
     useEffect(() => {
         api.get('profile', {
@@ -64,24 +65,26 @@ export default function Profile() {
 
             <h1>Casos cadastrados</h1>
             <ul>
-                {incidents.map(incident => (
-                    <li key={incident.id}>
-                        <strong>CASO:</strong>
-                        <p>{incident.title}</p>
+                {incidents.map(incident =>  {
+                    return (
+                        <li key={incident.id}>
+                            <strong>CASO:</strong>
+                            <p>{incident.title}</p>
 
-                        <strong>DESCRIÇÃO:</strong>
-                        <p>{incident.description}</p>
+                            <strong>DESCRIÇÃO:</strong>
+                            <p>{incident.description}</p>
 
-                        <strong>VALOR:</strong>
-                        <p>{Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(incident.value)}</p>
+                            <strong>VALOR:</strong>
+                            <p>{Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(incident.value)}</p>
 
-                        <button onClick={() => handleDeleteIncident(incident.id)} type="button">
-                            <FiTrash2 size={20} color="#a8a8b3" />
+                            <button onClick={() => handleDeleteIncident(incident.id)} type="button">
+                                <FiTrash2 size={20} color="#a8a8b3" />
 
-                        </button>
-                    </li>
+                            </button>
+                        </li>
 
-                ))}
+                );
+            })}
             </ul>
         </div>
     );
